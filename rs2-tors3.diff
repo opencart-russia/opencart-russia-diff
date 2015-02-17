@@ -1,0 +1,48 @@
+========= ИЗМЕНЕНИЯ ========
+- Удалено
++ Добавлено
+=============================
+
+--- admin/language/russian/common/footer.php	Tue Jan 06 18:58:36 2015
++++ admin/language/russian/common/footer.php	Fri Feb 06 18:25:58 2015
+@@ -3,3 +3,3 @@
+ $_['text_footer'] 	= '<HR><a href="http://www.opencart.com">OpenCart</a> &copy; 2009-' . date('Y') . ' Все права защищены.<br /> <BR /> <a href="http://opencart-russia.ru" target="_blank">Русская сборка OpenCart</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://forum.opencart-russia.ru" target="_blank">Форум поддержки</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://shop.opencart-russia.ru" target="_blank">Магазин дополнений</a>';
+-$_['text_version'] 	= 'Version %s (rs.2)';
++$_['text_version'] 	= 'Version %s (rs.3)';
+ 
+--- admin/language/russian/common/menu.php	Sun Nov 30 12:55:54 2014
++++ admin/language/russian/common/menu.php	Fri Feb 06 17:57:16 2015
+@@ -58,2 +58,4 @@
+ $_['text_report_affiliate_commission'] = 'Комиссия';
++$_['text_report_affiliate']            = 'Партнерская программа';
++$_['text_report_affiliate_activity']   = 'Активность партнеров';
+ $_['text_review']                      = 'Отзывы';
+ 
+--- catalog/language/russian/product/product.php	Fri Dec 05 14:28:03 2014
++++ catalog/language/russian/product/product.php	Fri Feb 06 18:08:14 2015
+@@ -3,3 +3,3 @@
+ $_['text_search']                             = 'Поиск';
+-$_['text_brand']                              = 'Бренд';
++$_['text_brand']                              = 'Производитель';
+ $_['text_manufacturer']                       = 'Производитель:';
+ 
+--- catalog/language/russian/default.php	Wed Oct 01 21:00:56 2014
++++ catalog/language/russian/default.php	Fri Feb 06 18:05:34 2015
+@@ -12,3 +12,3 @@
+ // Text
+-$_['text_home']             = 'Главная';
++$_['text_home']             = '<i class="fa fa-home"></i>';
+ $_['text_yes']              = 'Да';
+ 
+
+ ======= УДАЛЕНЫ ФАЙЛЫ =========
+\system\logs\error.log 
+\system\logs\openbay.log
+ 
+ ======= ДОБАВЛЕНЫ ФАЙЛЫ ========
+\system\modification\admin\view\template\common\header.tpl 
+\system\modification\system\engine\action.php 
+\system\modification\system\engine\loader.php 
+\system\modification\system\library\config.php 
+\system\modification\system\library\language.php 
+\system\tweak.ocmod.xml
