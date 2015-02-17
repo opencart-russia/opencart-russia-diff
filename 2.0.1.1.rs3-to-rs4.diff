@@ -4,8 +4,6 @@
 @@ строки @@
 =============================
 
-
-
 --- admin/language/russian/common/footer.php	Fri Feb 06 18:25:58 2015
 +++ admin/language/russian/common/footer.php	Mon Feb 16 15:34:44 2015
 @@ -3,3 +3,3 @@
@@ -57,7 +55,6 @@
 +<script type="text/javascript" src="view/javascript/jquery/translit.js"></script>
 +
  <style>
- 
  
   ======= ДОБАВЛЕНЫ ФАЙЛЫ ========
   
