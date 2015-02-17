@@ -1,0 +1,65 @@
+========= ИЗМЕНЕНИЯ ========
+- Удалено
++ Добавлено
+@@ строки @@
+=============================
+
+
+
+--- admin/language/russian/common/footer.php	Fri Feb 06 18:25:58 2015
++++ admin/language/russian/common/footer.php	Mon Feb 16 15:34:44 2015
+@@ -3,3 +3,3 @@
+ $_['text_footer'] 	= '<HR><a href="http://www.opencart.com">OpenCart</a> &copy; 2009-' . date('Y') . ' Все права защищены.<br /> <BR /> <a href="http://opencart-russia.ru" target="_blank">Русская сборка OpenCart</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://forum.opencart-russia.ru" target="_blank">Форум поддержки</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://shop.opencart-russia.ru" target="_blank">Магазин дополнений</a>';
+-$_['text_version'] 	= 'Version %s (rs.3)';
++$_['text_version'] 	= 'Version %s (rs.4)';
+ 
+--- admin/language/russian/payment/free_checkout.php	Wed Oct 01 19:18:07 2014
++++ admin/language/russian/payment/free_checkout.php	Mon Feb 16 15:29:34 2015
+@@ -7,3 +7,3 @@
+ $_['text_success']		 = 'Настройки успешно изменены!';
+-$_['text_edit']          = 'Edit Free Checkout';
++$_['text_edit']     	     = 'Редактирование';
+ 
+--- admin/language/russian/shipping/flat.php	Wed Oct 01 20:11:12 2014
++++ admin/language/russian/shipping/flat.php	Sun Feb 08 12:44:04 2015
+@@ -5,3 +5,3 @@
+ // Text
+-$_['text_shipping']    = 'Фиксированная стоимость доставки';
++$_['text_shipping']    = 'Доставка';
+ $_['text_success']     = 'Настройки успешно изменены!';
+ 
+--- admin/language/russian/shipping/free.php	Wed Oct 01 20:11:19 2014
++++ admin/language/russian/shipping/free.php	Sun Feb 08 12:43:52 2015
+@@ -5,3 +5,3 @@
+ // Text
+-$_['text_shipping']    = 'Бесплатная доставка';
++$_['text_shipping']    = 'Доставка';
+ $_['text_success']     = 'Настройки успешно изменены!';
+ 
+--- system/modification/admin/view/template/common/header.tpl	Fri Feb 06 18:35:04 2015
++++ system/modification/admin/view/template/common/header.tpl	Mon Feb 16 15:30:42 2015
+@@ -28,2 +28,4 @@
+ 
++<script type="text/javascript" src="view/javascript/jquery/translit.js"></script>
++
+ <style>
+--- system/tweak.ocmod.xml	Fri Feb 06 18:35:00 2015
++++ system/tweak.ocmod.xml	Mon Feb 16 15:28:43 2015
+@@ -2,4 +2,4 @@
+ <modification>
+-<name>Tweek for OpenCart Russkaya sborka</name>
+-<code>Tweek for OpenCart Russkaya sborka</code>
++<name>Tweak for OpenCart 2x Russkaya sborka</name>
++<code>Tweak for OpenCart 2x Russkaya sborka</code>
+ <version>1.0</version>
+@@ -14,2 +14,4 @@
+ 		<add position="before"><![CDATA[
++<script type="text/javascript" src="view/javascript/jquery/translit.js"></script>
++
+ <style>
+ 
+ 
+  ======= ДОБАВЛЕНЫ ФАЙЛЫ ========
+  
+\admin\view\javascript\jquery\translit.js 
+\robots.txt
