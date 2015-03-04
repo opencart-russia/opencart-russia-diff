@@ -1,0 +1,98 @@
+--- admin/language/russian/common/footer.php	Mon Feb 16 15:34:44 2015
++++ admin/language/russian/common/footer.php	Wed Mar 04 09:47:42 2015
+@@ -3,3 +3,3 @@
+ $_['text_footer'] 	= '<HR><a href="http://www.opencart.com">OpenCart</a> &copy; 2009-' . date('Y') . ' Все права защищены.<br /> <BR /> <a href="http://opencart-russia.ru" target="_blank">Русская сборка OpenCart</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://forum.opencart-russia.ru" target="_blank">Форум поддержки</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://shop.opencart-russia.ru" target="_blank">Магазин дополнений</a>';
+-$_['text_version'] 	= 'Version %s (rs.4)';
++$_['text_version'] 	= 'Version %s (rs.5)';
+ 
+--- admin/language/russian/default.php	Tue Nov 18 12:55:15 2014
++++ admin/language/russian/default.php	Sun Mar 01 12:02:37 2015
+@@ -92,2 +92,4 @@
+ $_['button_uninstall']              = 'Деактивировать';
++$_['button_login']                  = 'Войти в магазин';
++$_['button_unlock']                 = 'Разблокировать';
+ $_['button_link']                   = 'Ссылка';
+ 
+ 
+--- admin/view/template/catalog/product_form.tpl	Tue Dec 09 14:23:17 2014
++++ admin/view/template/catalog/product_form.tpl	Sat Dec 06 20:49:59 2014
+@@ -00,0 +1404, @@
++ код идентичен https://github.com/opencart/opencart/blob/2.0.1.1/upload/admin/view/template/catalog/product_form.tpl
+
+
+--- catalog/language/russian/common/footer.php	Fri Dec 05 14:40:56 2014
++++ catalog/language/russian/common/footer.php	Sun Mar 01 12:20:31 2015
+@@ -5,3 +5,3 @@
+ $_['text_extra']        = 'Дополнительно';
+-$_['text_contact']      = 'Связаться с нами';
++$_['text_contact']      = 'Обратная связь';
+ $_['text_return']       = 'Возврат товара';
+ 
+ 
+--- system/tweak.ocmod.xml	Mon Feb 16 15:28:43 2015
++++ system/tweak.ocmod.xml	Wed Mar 04 09:42:11 2015
+@@ -24,3 +24,48 @@
+ </file>
+- 
++
++<file path="admin/view/template/catalog/product_form.tpl">
++	<operation>
++		<search><![CDATA[
++			<label class="col-sm-2 control-label" for="input-sku"><span data-toggle="tooltip" title="<?php echo $help_sku; ?>"><?php echo $entry_sku; ?></span></label>
++		]]></search>
++		<add position="replace" offset="-2"><![CDATA[
++               <label class="col-sm-2 control-label" for="input-sku"><span data-toggle="tooltip" title="<?php echo $help_sku; ?>"><?php echo $entry_sku; ?></span></label>
++		]]></add>
++	</operation>
++	
++	<operation>
++		<search><![CDATA[
++        <label class="col-sm-2 control-label" for="input-sku">
++		]]></search>
++		<add position="before"><![CDATA[
++ 				<div class="col-sm-1 text-right">
++					<a type="button"  title="Показать/Скрыть - Дополнительные поля " class="btn btn-info " data-toggle="collapse" data-parent="#accordion" href="#pcollapse"><i class="fa fa-arrows-v"></i></a>
++				</div>
++			 </div>
++			  
++              <div class="collapse" id="pcollapse">
++			  <div class="form-group">
++		]]></add>
++	</operation>
++	
++	<operation>
++		<search><![CDATA[
++		<label class="col-sm-2 control-label" for="input-location"><?php echo $entry_location; ?></label>
++		]]></search>
++		<add position="before" offset="1"><![CDATA[
++			  </div>
++		]]></add>
++	</operation>
++	
++	<operation>
++		<search><![CDATA[
++		<input type="text" name="model" value="<?php echo $model; ?>" placeholder="<?php echo $entry_model; ?>" id="input-model" class="form-control" />
++		]]></search>
++		<add position="replace" offset="-1"><![CDATA[
++                <div class="col-sm-9">
++                  <input type="text" name="model" value="<?php echo $model; ?>" placeholder="<?php echo $entry_model; ?>" id="input-model" class="form-control" />
++		]]></add>
++	</operation>
++</file>
++
+ </modification>
+\ No newline at end of file
+
+
+--- .htaccess.txt	Sat Dec 06 20:49:59 2014
++++ .htaccess.txt	Tue Mar 03 09:51:47 2015
+@@ -24,3 +24,3 @@
+ RewriteRule ^googlebase.xml$ index.php?route=feed/google_base [L]
+-RewriteRule ^download/(.*) /index.php?route=error/not_found [L]
++RewriteRule ^system/download/(.*) /index.php?route=error/not_found [L]
+ RewriteCond %{REQUEST_FILENAME} !-f
+ 
+
+  ======== ДОБАВЛЕНЫ ФАЙЛЫ =============
+++ \system\modification\admin\view\template\catalog\product_form.tpl
+
