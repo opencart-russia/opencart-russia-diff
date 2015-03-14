@@ -1,0 +1,105 @@
+--- admin/language/russian/common/footer.php	Wed Mar 04 09:47:42 2015
++++ admin/language/russian/common/footer.php	Sat Mar 14 10:35:47 2015
+@@ -3,3 +3,3 @@
+ $_['text_footer'] 	= '<HR><a href="http://www.opencart.com">OpenCart</a> &copy; 2009-' . date('Y') . ' Все права защищены.<br /> <BR /> <a href="http://opencart-russia.ru" target="_blank">Русская сборка OpenCart</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://forum.opencart-russia.ru" target="_blank">Форум поддержки</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://shop.opencart-russia.ru" target="_blank">Магазин дополнений</a>';
+-$_['text_version'] 	= 'Version %s (rs.5)';
++$_['text_version'] 	= 'Version %s (rs.6)';
+ 
+ 
+--- admin/language/russian/common/menu.php	Fri Feb 06 17:57:16 2015
++++ admin/language/russian/common/menu.php	Sat Mar 14 10:32:53 2015
+@@ -16,3 +16,3 @@
+ $_['text_customer_group']              = 'Группа клиентов';
+-$_['text_customer_ban_ip']             = 'Бан по IP';
++$_['text_customer_ban_ip']             = 'Заблокированные IP';
+ $_['text_custom_field']                = 'Настраиваемые поля';
+ 
+ 
+--- admin/language/russian/sale/customer.php	Fri Dec 05 14:00:11 2014
++++ admin/language/russian/sale/customer.php	Sat Mar 14 10:35:11 2015
+@@ -11,4 +11,4 @@
+ $_['text_balance']          = 'Баланс';
+-$_['text_add_ban_ip']       = 'Добавить IP';
+-$_['text_remove_ban_ip']    = 'Удалить IP';
++$_['text_add_ban_ip']       = 'Заблокировать по IP ';
++$_['text_remove_ban_ip']    = 'Разблокировать по IP';
+ $_['text_login']            = 'Войти в магазин как Клиент';
+ 
+ 
+--- admin/language/russian/sale/customer_ban_ip.php	Wed Oct 01 20:02:34 2014
++++ admin/language/russian/sale/customer_ban_ip.php	Sat Mar 14 10:31:26 2015
+@@ -2,3 +2,3 @@
+ // Heading
+-$_['heading_title']    = 'Список забаненых IP';
++$_['heading_title']    = 'Список заблокированных IP';
+ 
+@@ -6,3 +6,3 @@
+ $_['text_success']     = 'Настройки успешно изменены!';
+-$_['text_list']        = 'Список забаненых IP';
++$_['text_list']        = 'Список заблокированных IP';
+ $_['text_add']          = 'Добавить';
+@@ -19,3 +19,3 @@
+ // Error
+-$_['error_permission'] = 'У вас нет прав для изменения Список забаненых IP!';
++$_['error_permission'] = 'У вас нет прав для изменения Списка заблокированных IP!';
+ $_['error_ip']         = 'IP должен быть от 1 до 15 символов!';
+ 
+ 
+--- catalog/controller/common/seo_url.php	Tue Jan 06 18:58:06 2015
++++ catalog/controller/common/seo_url.php	Sat Mar 14 11:12:07 2015
+@@ -61,3 +61,3 @@
+ 		  // Redirect 301	
+-		} elseif (isset($this->request->get['route']) && $this->config->get('config_seo_url')) {
++		} elseif (isset($this->request->get['route']) && $this->config->get('config_seo_url') && !isset($this->request->get['token'])) {
+ 			$arg = '';
+			
+			
+--- catalog/language/russian/account/login.php	Fri Dec 05 14:31:46 2014
++++ catalog/language/russian/account/login.php	Sat Mar 14 11:27:44 2015
+@@ -9,3 +9,3 @@
+ $_['text_register']                = 'Регистрация';
+-$_['text_register_account']        = 'Создание учетной записи поможет покупать быстрее. Вы сможете контролировать состояние заказа, а также просматривать заказы сделанные ранее. Вы сможете накапливать призовые баллы и получать скидочные купоны. <BR />А постоянным покупателям мы предлагаем гибкую систему скидок и персональное обслуживание.<BR />';
++$_['text_register_account']        = 'Создание учетной записи поможет покупать быстрее. Вы сможете контролировать состояние заказа, а также просматривать заказы сделанные ранее. Вы сможете накапливать призовые баллы и получать скидочные купоны. <BR>А постоянным покупателям мы предлагаем гибкую систему скидок и персональное обслуживание.<BR>';
+ $_['text_returning_customer']      = 'Зарегистрированный клиент';
+ 
+ 
+--- catalog/language/russian/checkout/success.php	Fri Dec 05 14:40:26 2014
++++ catalog/language/russian/checkout/success.php	Sat Mar 14 10:38:35 2015
+@@ -2,3 +2,3 @@
+ // Heading
+-$_['heading_title']        = 'Ваш заказ сформирован!';
++$_['heading_title']        = 'Ваш заказ принят!';
+ 
+@@ -7,4 +7,4 @@
+ $_['text_checkout']        = 'Оформить заказ';
+-$_['text_success']         = 'Операция выполнена успешно';
+-$_['text_customer']        = '<p>Ваш заказ успешно создан!</p><p>История заказа находится в <a href="%s">Личном кабинете</a>. Для просмотра истории, перейдите по ссылке <a href="%s">История заказов</a>.</p><p>Если Ваша покупка связана с цифровыми товарами, перейдите на страницу <a href="%s">Файлы для скачивания</a> для просмотра или скачивания.</p><p>Если у Вас возникли вопросы, пожалуйста <a href="%s">свяжитесь с нами</a>.</p><p>Спасибо за покупки в нашем интернет-магазине!</p>';
+-$_['text_guest']           = '<p>Ваш заказ успешно создан!</p><p>Если у Вас возникли вопросы, пожалуйста <a href="%s">свяжитесь с нами</a>.</p><p>Спасибо за покупки в нашем интернет-магазине!</p>';
++$_['text_success']         = 'Заказ принят';
++$_['text_customer']        = '<p>Ваш заказ принят!</p><p>История заказа находится в <a href="%s">Личном кабинете</a>. Для просмотра истории, перейдите по ссылке <a href="%s">История заказов</a>.</p><p>Если Ваша покупка связана с цифровыми товарами, перейдите на страницу <a href="%s">Файлы для скачивания</a> для просмотра или скачивания.</p><p>Если у Вас возникли вопросы, пожалуйста <a href="%s">свяжитесь с нами</a>.</p><p>Спасибо за покупки в нашем интернет-магазине!</p>';
++$_['text_guest']           = '<p>Ваш заказ принят!</p><p>Если у Вас возникли вопросы, пожалуйста <a href="%s">свяжитесь с нами</a>.</p><p>Спасибо за покупки в нашем интернет-магазине!</p>';
+
+
+--- catalog/language/russian/common/cart.php	Wed Oct 01 21:00:55 2014
++++ catalog/language/russian/common/cart.php	Sat Mar 14 10:40:48 2015
+@@ -4,4 +4,4 @@
+ $_['text_empty']    = 'Ваша корзина пуста!';
+-$_['text_cart']     = 'Посмотреть корзину';
+-$_['text_checkout'] = 'Оформление покупки';
++$_['text_cart']     = 'Перейти в корзину';
++$_['text_checkout'] = 'Оформить заказ';
+ $_['text_recurring']  = 'Платежный профиль';
+ 
+ 
+--- catalog/language/russian/product/product.php	Fri Feb 06 18:08:14 2015
++++ catalog/language/russian/product/product.php	Sat Mar 14 12:06:02 2015
+@@ -13,3 +13,3 @@
+ $_['text_option']                             = 'Доступные варианты';
+-$_['text_minimum']                            = 'Минимальное количество для заказа данного товара: %s';
++$_['text_minimum']                            = 'Минимальное количество для заказа: %s';
+ $_['text_reviews']                            = '%s отзывов';
+@@ -21,3 +21,3 @@
+ $_['text_related']                            = 'Рекомендуемые товары';
+-$_['text_tags']                               = 'Теги:';
++$_['text_tags']                               = '<i class="fa fa-tags"></i>';
+ $_['text_error']                              = 'Товар не найден!';
