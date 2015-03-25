@@ -1,0 +1,83 @@
+--- admin/controller/payment/pp_express.php	Sat Dec 06 20:49:59 2014
++++ admin/controller/payment/pp_express.php	Wed Mar 25 20:59:32 2015
+@@ -592,2 +592,3 @@
+ 		$data['button_refund'] = $this->language->get('button_refund');
++		$data['text_edit'] = $this->language->get('text_refund');
+ 
+ 
+ 
+--- admin/language/russian/payment/pp_express_refund.php	Wed Oct 01 19:18:09 2014
++++ admin/language/russian/payment/pp_express_refund.php	Wed Mar 25 20:55:46 2015
+@@ -2,20 +2,22 @@
+ // Heading
+-$_['heading_title']					= 'Refund Transaction';
++$_['heading_title']					= 'Возврат транзакции';
+ 
+ // Text
+-$_['text_pp_express']				= 'PayPal Express Checkout';
+-$_['text_current_refunds']			= 'Refunds have already been done for this transaction. The max refund is';
++$_['text_pp_express']				= 'PayPal Экспресс-платежи';
++$_['text_current_refunds']		= 'Возврат уже выполнен для данной операции. Максимальная сумма возврата  ';
++$_['text_refund']						= 'Возврат';
++$_['text_edit'] 						= 'Возврат';
+ 
+ // Entry
+-$_['entry_transaction_id']			= 'Transaction ID';
+-$_['entry_full_refund']				= 'Full refund';
+-$_['entry_amount']					= 'Amount';
+-$_['entry_message']					= 'Message';
++$_['entry_transaction_id']		= 'ID транзакции';
++$_['entry_full_refund']				= 'Полный возврат';
++$_['entry_amount']					= 'Сумма';
++$_['entry_message']				= 'Сообщение';
+ 
+ // Button
+-$_['button_refund']					= 'Issue refund';
++$_['button_refund']					= 'Оформить возврат';
+ 
+ // Error
+-$_['error_partial_amt']				= 'You must enter a partial refund amount';
+-$_['error_data']					= 'Data missing from request';
++$_['error_partial_amt']				= 'Вы должны ввести часть суммы';
++$_['error_data']						= 'Нет данных';
+ 
+ 
+ 
+--- catalog/controller/common/seo_url.php	Sat Mar 14 11:12:07 2015
++++ catalog/controller/common/seo_url.php	Wed Mar 25 21:00:48 2015
+@@ -36,3 +36,3 @@
+ 					
+-					if ($query->row['query'] && $url[0] != 'information_id' && $url[0] != 'manufacturer_id'  && $url[0] != 'category_id' && $url[0] != 'product_id') {
++					if ($query->row['query'] && $url[0] != 'information_id' && $url[0] != 'manufacturer_id' && $url[0] != 'category_id' && $url[0] != 'product_id') {
+ 						$this->request->get['route'] = $query->row['query'];
+
+						
+						
+--- system/tweak.ocmod.xml	Wed Mar 04 09:42:11 2015
++++ system/tweak.ocmod.xml	Wed Mar 25 21:10:42 2015
+@@ -70,2 +70,15 @@
+ 
++
++<file path="catalog/model/payment/pp_standard.php">
++	<operation>
++		<search><![CDATA[
++			'AUD',
++		]]></search>
++		<add position="before"><![CDATA[
++			'RUB',
++		]]></add>
++	</operation>
++</file>
++
++
+ </modification>
+\ No newline at end of file
+
+====== 	ДОБАВЛЕНЫ ФАЙЛЫ =======
+
++ \system\modification\catalog\model\payment\pp_standard.php
+
+
+
+
+.
