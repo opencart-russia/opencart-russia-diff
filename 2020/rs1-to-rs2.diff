@@ -1,0 +1,85 @@
+--- admin/language/russian/common/footer.php	Tue Mar 31 21:09:48 2015
++++ admin/language/russian/common/footer.php	Wed Apr 15 16:04:22 2015
+@@ -3,3 +3,3 @@
+ $_['text_footer'] 	= '<HR><a href="http://www.opencart.com">OpenCart</a> &copy; 2009-' . date('Y') . ' Все права защищены.<br /> <BR /> <a href="http://opencart-russia.ru" target="_blank">Русская сборка OpenCart</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://forum.opencart-russia.ru" target="_blank">Форум поддержки</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://shop.opencart-russia.ru" target="_blank">Магазин дополнений</a>';
+-$_['text_version'] 	= 'Version %s (rs.1)';
++$_['text_version'] 	= 'Version %s (rs.2)';
+ 
+ 
+--- admin/language/russian/common/menu.php	Sat Mar 14 10:32:53 2015
++++ admin/language/russian/common/menu.php	Sun Apr 12 20:37:34 2015
+@@ -68,3 +68,3 @@
+ $_['text_setting']                     = 'Настройки';
+-$_['text_stock_status']                = 'Статусы склада';
++$_['text_stock_status']                = 'Состояние на складе';
+ $_['text_system']                      = 'Система';
+ 
+ 
+--- catalog/language/russian/account/success.php	Wed Oct 15 19:08:54 2014
++++ catalog/language/russian/account/success.php	Mon Apr 06 09:02:52 2015
+@@ -5,3 +5,3 @@
+ // Text
+-$_['text_message']  = '<p>Поздравляем! Ваш Личный Кабинет был успешно создан.</p><p>Теперь вы можете воспользоваться дополнительными возможностями: просмотр истории заказов, печать счета, изменение своей контактной информации и адресов доставки и многое другое.</p><p>Если у Вас есть какие-либо вопросы, напишите нам.</p><p>Спасибо, что выбрали %s </p><p>Письмо с данными о регистрации было отправлено на Ваш E-mail. Если Вы не получили письмо, пожалуйста <a href="%s">напишите нам</a>.</p>';
++$_['text_message']  = '<p>Поздравляем! Ваш Личный Кабинет был успешно создан.</p><p>Теперь вы можете воспользоваться дополнительными возможностями: просмотр истории заказов, печать счета, изменение своей контактной информации и адресов доставки и многое другое.</p><p>Если у Вас есть какие-либо вопросы,  <a href="%s">напишите нам</a>.</p>';
+ $_['text_approval'] = '<p>Спасибо за регистрацию в %s!</p><p>Вы будете уведомлены по электронной почте, как только Ваш Личный Кабинет будет активирован администрацией магазина.</p><p>Если у Вас есть какие-то вопросы, пожалуйста <a href="%s">напишите нам</a>.</p>';
+
+ 
+ --- catalog/language/russian/information/contact.php	Wed Oct 01 21:00:56 2014
++++ catalog/language/russian/information/contact.php	Sat Apr 04 20:36:50 2015
+@@ -2,3 +2,3 @@
+ // Heading
+-$_['heading_title']  = 'Связаться с нами';
++$_['heading_title']  = 'Обратная связь';
+ 
+ 
+--- install/view/template/success.tpl	Mon Mar 30 12:22:26 2015
++++ install/view/template/success.tpl	Wed Apr 15 16:43:12 2015
+@@ -7,13 +7,13 @@
+   </header>
+-  <h1>Upgrade - Complete!</h1>
++  <h1>Обновление - Выполнено!</h1>
+   <div class="row">
+     <div class="col-sm-9">
+-      <div class="alert alert-danger">Don't forget to delete your installation directory!</div>
+-      <p>Congratulations! You have successfully upgraded OpenCart.</p>
++      <div class="alert alert-danger">Не забудьте удалить папку install!</div>
++      <p>Поздравляем! Вы успешно обновили OpenCart "Русская сборка".</p>
+       <div class="row">
+         <div class="col-lg-6"><a href="../"><img src="view/image/screenshot_1.png" alt="" class="img-thumbnail" /></a><br />
+-          <p class="text-center"><a href="../">Goto your Online Shop</a></p>
++          <p class="text-center"><a href="../">Перейти в Магазин</a></p>
+         </div>
+         <div class="col-lg-6"><a href="../admin/"><img src="view/image/screenshot_2.png" alt="" class="img-thumbnail" /></a><br />
+-          <p class="text-center"><a href="../admin/">Login to your Administration</a></p>
++          <p class="text-center"><a href="../admin/">Перейти в панель Администратора</a></p>
+         </div>
+@@ -23,4 +23,4 @@
+       <ul class="list-group">
+-        <li class="list-group-item">Upgrade</li>
+-        <li class="list-group-item"><b>Finished</b></li>
++        <li class="list-group-item">Обновление</li>
++        <li class="list-group-item"><b>Завершено</b></li>
+       </ul>
+	   
+	   
+--- install/view/template/upgrade.tpl	Tue Mar 31 22:18:25 2015
++++ install/view/template/upgrade.tpl	Wed Apr 15 16:37:04 2015
+@@ -29,3 +29,3 @@
+           <div class="text-right">
+-            <input type="submit" value="Continue" class="button" />
++            <input type="submit" value="Продолжить" class="button" />
+           </div>
+@@ -37,3 +37,3 @@
+         <li class="list-group-item"><b>Обновление</b></li>
+-        <li class="list-group-item">Окончено</li>
++        <li class="list-group-item">Завершено</li>
+       </ul>
+	   
+	   
+	   
++++   ========================== ДОБАВЛЕННЫ ФАЙЛЫ =================================
++   \admin\view\javascript\jquery\translit.js		 
+
+
+
+.
