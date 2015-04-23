@@ -1,0 +1,154 @@
+--- admin/language/russian/catalog/product.php	Mon Jan 05 09:59:55 2015
++++ admin/language/russian/catalog/product.php	Sat Apr 18 18:52:53 2015
+@@ -57,5 +57,5 @@
+ $_['entry_length_class']     = 'Единица измерения длины';
+-$_['entry_length']           = 'Единица измерения длины';
++$_['entry_length']           = 'Длина';
+ $_['entry_width']            = 'Ширина';
+-$_['entry_height']           = 'Длина';
++$_['entry_height']           = 'Высота';
+ $_['entry_image']            = 'Изображение товара';
+ 
+ 
+--- admin/language/russian/common/footer.php	Wed Apr 15 16:04:22 2015
++++ admin/language/russian/common/footer.php	Thu Apr 23 13:55:35 2015
+@@ -3,3 +3,3 @@
+ $_['text_footer'] 	= '<HR><a href="http://www.opencart.com">OpenCart</a> &copy; 2009-' . date('Y') . ' Все права защищены.<br /> <BR /> <a href="http://opencart-russia.ru" target="_blank">Русская сборка OpenCart</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://forum.opencart-russia.ru" target="_blank">Форум поддержки</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://shop.opencart-russia.ru" target="_blank">Магазин дополнений</a>';
+-$_['text_version'] 	= 'Version %s (rs.2)';
++$_['text_version'] 	= 'Version %s (rs.3)';
+ 
+ 
+--- admin/language/russian/localisation/currency.php	Wed Oct 01 19:41:23 2014
++++ admin/language/russian/localisation/currency.php	Tue Apr 21 12:13:21 2015
+@@ -5,22 +5,24 @@
+ // Text
+-$_['text_success']         = 'Настройки успешно изменены';
++$_['text_success']    = 'Курсы валют обновлены';
+ $_['text_list']            = 'Список валют';
+-$_['text_add']          = 'Добавить';
+-$_['text_edit']         = 'Редактирование';
++$_['text_add']           = 'Добавить';
++$_['text_edit']           = 'Редактирование';
++
++$_['button_currency']         = 'Обновить курс валют';
+ 
+ // Column
+-$_['column_title']         = 'Название валюты';
+-$_['column_code']          = 'Код';
+-$_['column_value']         = 'Значение';
++$_['column_title']                = 'Название валюты';
++$_['column_code']              = 'Код';
++$_['column_value']              = 'Значение';
+ $_['column_date_modified'] = 'Дата последнего обновления';
+-$_['column_action']        = 'Действие';
++$_['column_action']            = 'Действие';
+ 
+ // Entry
+-$_['entry_title']          = 'Название валюты';
+-$_['entry_code']           = 'Код';
+-$_['entry_value']          = 'Значение';
+-$_['entry_symbol_left']    = 'Символ слева';
+-$_['entry_symbol_right']   = 'Символ справа';
+-$_['entry_decimal_place']  = 'Количество знаков после запятой';
+-$_['entry_status']         = 'Статус';
++$_['entry_title']                  = 'Название валюты';
++$_['entry_code']                = 'Код';
++$_['entry_value']                = 'Значение';
++$_['entry_symbol_left']       = 'Символ слева';
++$_['entry_symbol_right']     = 'Символ справа';
++$_['entry_decimal_place']   = 'Количество знаков после запятой';
++$_['entry_status']               = 'Статус';
+ 
+@@ -28,7 +30,7 @@
+ $_['help_code']            = 'Не изменяется, если валюта установлена по умолчанию.';
+-$_['help_value']           = 'Установите на 1.00000 если это валюта по умолчанию.';
++$_['help_value']            = 'Установите на 1.00000 если это валюта по умолчанию.';
+ 
+ // Error
+-$_['error_permission']     = 'У Вас нет прав для изменения списка валют';
+-$_['error_title']          = 'Название валюты должно быть от 3 до 32 символов!';
++$_['error_permission']   = 'У Вас нет прав для изменения списка валют';
++$_['error_title']             = 'Название валюты должно быть от 3 до 32 символов!';
+ $_['error_code']           = 'Код валюты должен состоять из 3 символов!';
+ 
+ 
+--- catalog/controller/common/seo_url.php	Tue Mar 31 21:39:29 2015
++++ catalog/controller/common/seo_url.php	Thu Apr 23 14:01:44 2015
+@@ -61,3 +61,3 @@
+ 		  // Redirect 301	
+-		} elseif (isset($this->request->get['route']) && $this->config->get('config_seo_url') && !isset($this->request->get['token'])) {
++		} elseif (isset($this->request->get['route']) && empty($this->request->post) && !isset($this->request->get['token']) && $this->config->get('config_seo_url')) {
+ 			$arg = '';
+@@ -73,4 +73,4 @@
+ 				$this->request->get['route'] = 'information_id=' . $this->request->get['information_id'];
+-			} elseif ($this->request->get['route'] == 'product/search') {
+-				$args = str_replace("route=product/search", "", $this->request->server['QUERY_STRING']);
++			} elseif (sizeof($this->request->get) > 1) {
++				$args = str_replace("route=" . $this->request->get['route'], "", $this->request->server['QUERY_STRING']);
+ 				$arg = str_replace('&amp;', '&', $args);
+@@ -82,3 +82,3 @@
+ 			
+-			if ($query->num_rows) {
++			if ($query->num_rows)  {
+ 				$this->response->redirect($query->row['keyword'] . $arg, 301);
+@@ -96,3 +96,3 @@
+ 					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = '" . $this->db->escape($key . '=' . (int)$value) . "'");
+-					if ($query->num_rows) {
++					if ($query->num_rows && $query->row['keyword']) {
+ 						$url .= '/' . $query->row['keyword'];
+@@ -104,3 +104,3 @@
+ 						$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = 'category_id=" . (int)$category . "'");
+-						if ($query->num_rows) {
++						if ($query->num_rows && $query->row['keyword']) {
+ 							$url .= '/' . $query->row['keyword'];
+@@ -114,3 +114,3 @@
+ 					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = '" . $this->db->escape($data['route']) . "'");
+-					if ($query->num_rows) {
++					if ($query->num_rows)  {
+ 						$url .= '/' . $query->row['keyword'];
+						
+						
+--- catalog/language/russian/account/return.php	Fri Dec 05 14:33:06 2014
++++ catalog/language/russian/account/return.php	Sat Apr 18 20:03:55 2015
+@@ -22,2 +22,4 @@
+ 
++$_['button_submit']         = 'Отправить запрос';
++
+ // Column
+ 
+ 
+--- catalog/language/russian/information/contact.php	Sat Apr 04 20:36:50 2015
++++ catalog/language/russian/information/contact.php	Sat Apr 18 20:01:34 2015
+@@ -14,2 +14,3 @@
+ $_['text_success']   = '<p>Ваше сообщение успешно отправлено владельцу магазина!</p>';
++$_['button_submit']         = 'Отправить сообщение';
+ 
+@@ -23,2 +24,4 @@
+ $_['email_subject']  = 'Сообщение от %s';
++
++
+ 
+ 
+--- catalog/language/russian/product/product.php	Sat Mar 14 12:05:23 2015
++++ catalog/language/russian/product/product.php	Thu Apr 23 14:19:01 2015
+@@ -43,5 +43,6 @@
+ // Tabs
+-$_['tab_description']                         = 'Описание';
++$_['tab_description']                       = 'Описание';
+ $_['tab_attribute']                           = 'Характеристики';
+ $_['tab_review']                              = 'Отзывов (%s)';
++$_['button_continue']                      = 'Отправить отзыв';
+ 
+ 
+--- robots.txt	Mon Feb 16 15:15:40 2015
++++ robots.txt	Sat Apr 18 13:48:13 2015
+@@ -26,3 +26,3 @@
+ Disallow: /*search
+-Disallow: /*cart"
++Disallow: /*cart
+ Disallow: /*checkout
+@@ -74,3 +74,3 @@
+ Disallow: /*search
+-Disallow: /*cart"
++Disallow: /*cart
+ Disallow: /*checkout
