@@ -1,0 +1,235 @@
+--- admin/language/russian/common/footer.php	Thu Apr 23 13:55:35 2015
++++ admin/language/russian/common/footer.php	Thu May 07 15:35:11 2015
+@@ -3,3 +3,3 @@
+ $_['text_footer'] 	= '<HR><a href="http://www.opencart.com">OpenCart</a> &copy; 2009-' . date('Y') . ' Все права защищены.<br /> <BR /> <a href="http://opencart-russia.ru" target="_blank">Русская сборка OpenCart</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://forum.opencart-russia.ru" target="_blank">Форум поддержки</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://shop.opencart-russia.ru" target="_blank">Магазин дополнений</a>';
+-$_['text_version'] 	= 'Version %s (rs.3)';
++$_['text_version'] 	= 'Version %s (rs.4)';
+ 
+ 
+--- admin/language/russian/common/menu.php	Sun Apr 12 20:37:34 2015
++++ admin/language/russian/common/menu.php	Sun Apr 26 23:58:24 2015
+@@ -75,3 +75,3 @@
+ $_['text_total']                       = 'Учитывать в заказе';
+-$_['text_upload']                      = 'Загрузить';
++$_['text_upload']                      = 'Внешние загрузки';
+ $_['text_user']                        = 'Пользователь';
+ 
+  
+--- admin/language/russian/tool/upload.php	Wed Oct 01 20:13:34 2014
++++ admin/language/russian/tool/upload.php	Mon Apr 27 00:00:21 2015
+@@ -2,3 +2,3 @@
+ // Heading
+-$_['heading_title']     = 'Загрузки';
++$_['heading_title']     = 'Внешние загрузки';
+ 
+@@ -6,6 +6,6 @@
+ $_['text_success']      = 'Выполнено!';
+-$_['text_list']         = 'Загрузки';
++$_['text_list']         = 'Внешние загрузки';
+ 
+ // Column
+-$_['column_name']       = 'Имя загрузки';
++$_['column_name']       = 'Название Файла';
+ $_['column_filename']   = 'Имя Файла';
+@@ -15,3 +15,3 @@
+ // Entry
+-$_['entry_name']        = 'Имя загрузки';
++$_['entry_name']        = 'Название Файла';
+ $_['entry_filename']    = 'Имя Файла';
+ 
+ 
+--- catalog/controller/common/seo_url.php	Thu Apr 23 14:01:44 2015
++++ catalog/controller/common/seo_url.php	Wed May 06 10:29:07 2015
+@@ -1,2 +1,2 @@
+-<?php // ==========================================  seo_url.php opencart-russia.ru ===============================
++<?php // ==========================================  seo_url.php v.6515 opencart-russia.ru ===============================
+ class ControllerCommonSeoUrl extends Controller {
+@@ -63,2 +63,3 @@
+ 			$arg = '';
++			$cat_path = false;
+ 			if ($this->request->get['route'] == 'product/product' && isset($this->request->get['product_id'])) {
+@@ -67,4 +68,13 @@
+ 				$categorys_id = explode('_', $this->request->get['path']);
+-				$category_id = (int)array_pop($categorys_id);
+-				$this->request->get['route'] = 'category_id=' . $category_id;
++				$cat_path = '';
++				foreach ($categorys_id as $category_id) {
++					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = 'category_id=" . (int)$category_id . "'");	
++					if ($query->num_rows && $query->row['keyword'] /**/ ) {
++						$cat_path .= '/' . $query->row['keyword'];
++					} else {
++						$cat_path = false;
++						break;
++					}
++				}
++				$arg = trim($cat_path, '/');
+ 			} elseif ($this->request->get['route'] == 'product/manufacturer/info' && isset($this->request->get['manufacturer_id'])) {
+@@ -82,5 +92,7 @@
+ 			
+-			if ($query->num_rows)  {
++			if ($query->num_rows) /**/ {
+ 				$this->response->redirect($query->row['keyword'] . $arg, 301);
+-			}
++			} elseif ($cat_path) {
++				$this->response->redirect($arg, 301);
++			} 
+ 		}
+@@ -112,5 +124,5 @@
+ 					unset($data[$key]);
+-				} else  {
++				} else {
+ 					$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "url_alias WHERE `query` = '" . $this->db->escape($data['route']) . "'");
+-					if ($query->num_rows)  {
++					if ($query->num_rows) /**/ {
+ 						$url .= '/' . $query->row['keyword'];
+						
+						
+--- catalog/language/russian/account/login.php	Sat Mar 14 11:27:44 2015
++++ catalog/language/russian/account/login.php	Thu May 07 15:29:28 2015
+@@ -20,2 +20,3 @@
+ $_['error_login']                  = 'Неправильно заполнены поле E-Mail и/или пароль!';
++$_['error_attempts']               = 'Вы превысили максимальное количество попыток авторизации. Повторите попытку авторизации на сайте через 1 час';
+ $_['error_approved']               = 'Необходимо подтвердить аккаунт перед авторизацией.';
+ 
+ 
+--- catalog/language/russian/affiliate/login.php	Fri Dec 05 14:36:57 2014
++++ catalog/language/russian/affiliate/login.php	Thu May 07 15:29:23 2015
+@@ -20,2 +20,3 @@
+ $_['error_login']                   = 'Не найден введённый адрес E-Mail и/или пароль указан неправильно.';
++$_['error_attempts']               = 'Вы превысили максимальное количество попыток авторизации. Повторите попытку авторизации на сайте через 1 час';
+ $_['error_approved']                = 'Ваш аккаунт пока не одобрен. Ожидайте, скоро администрация должна одобрить Ваш аккаунт.';
+ 
+ 
+--- catalog/language/russian/checkout/checkout.php	Fri Dec 05 14:39:33 2014
++++ catalog/language/russian/checkout/checkout.php	Thu May 07 15:29:36 2015
+@@ -73,2 +73,3 @@
+ $_['error_login']                    = 'Ошибка: Неправильный E-Mail и/или пароль.';
++$_['error_attempts']               = 'Вы превысили максимальное количество попыток авторизации. Повторите попытку авторизации на сайте через 1 час';
+ $_['error_approved']                 = 'Прежде чем Вы сможете войти, администрация должна одобрить Ваш аккаунт.';
+ 
+ 
+--- catalog/language/russian/product/compare.php	Fri Dec 05 14:26:10 2014
++++ catalog/language/russian/product/compare.php	Fri Apr 24 15:56:13 2015
+@@ -20,3 +20,3 @@
+ $_['text_success']      = 'Товар <a href="%s">%s</a> добавлен в ваш <a href="%s">список сравнения</a>!';
+-$_['text_remove']       = 'Убрать';
++$_['text_remove']       = 'Удалено из списка сравнений';
+ $_['text_empty']        = 'Вы не выбрали ни одного товара для сравнения.';
+ 
+ 
+--- install/opencart.sql	Fri Apr 24 14:00:44 2015
++++ install/opencart.sql	Wed May 06 12:42:01 2015
+@@ -3164,6 +3164,11 @@
+ (869,'account/reward', 'reward-points'),
+-(870,'affiliate/forgotten', 'affiliate-forgot-password'),
+-(871,'affiliate/register', 'create-affiliate-account'),
+-(872,'affiliate/login', 'affiliate-login'),
+-(873,'affiliate/account', 'affiliates');
++(870,'account/edit', 'edit-account'),
++(871,'account/password', 'change-password'),
++(880,'affiliate/forgotten', 'affiliate-forgot-password'),
++(881,'affiliate/register', 'create-affiliate-account'),
++(882,'affiliate/login', 'affiliate-login'),
++(883,'affiliate/payment', 'affiliate-payment'),
++(884,'affiliate/tracking', 'affiliate-tracking'),
++(885,'affiliate/transaction', 'affiliate-transaction'),
++(886,'affiliate/account', 'affiliates');
+ 
+ 
+--- system/tweak.ocmod.xml	Wed Apr 22 13:24:43 2015
++++ system/tweak.ocmod.xml	Thu May 07 16:50:15 2015
+@@ -4,3 +4,3 @@
+ <code>Tweak for OpenCart 2x Russkaya sborka</code>
+-<version>2.0.2.0</version>
++<version>2.0.2.0.1</version>
+ <author>Romans</author>
+@@ -97,2 +97,71 @@
+ 
++<!-- Исправляем sitemap.xml. Меняем амперсанды для корректной генерации -->
++<file path="catalog/controller/feed/google_sitemap.php">
++	<operation>
++		<search><![CDATA[
++			$output .= '<loc>' . $this->url->link('product/product', 'product_id=' . $product['product_id']) . '</loc>';
++		]]></search>
++		<add position="replace" offset = "-1"><![CDATA[
++			$link = $this->url->link('product/product', 'product_id=' . $product['product_id']);
++			$output .= '<url>';
++			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
++		]]></add>
++	</operation>
++
++	<operation>
++		<search><![CDATA[
++			$output .= '<loc>' . $this->url->link('product/product', 'manufacturer_id=' . $manufacturer['manufacturer_id'] . '&amp;product_id=' . $product['product_id']) . '</loc>';
++		]]></search>
++		<add position="replace" offset = "-1"><![CDATA[
++			$link = $this->url->link('product/product', 'manufacturer_id=' . $manufacturer['manufacturer_id'] . '&product_id=' . $product['product_id']);
++			$output .= '<url>';
++			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
++		]]></add>
++	</operation>
++	
++	<operation>
++		<search><![CDATA[
++			$output .= '<loc>' . $this->url->link('product/category', 'path=' . $new_path) . '</loc>';
++		]]></search>
++		<add position="replace" offset = "-1"><![CDATA[
++			$link = $this->url->link('product/category', 'path=' . $new_path);
++			$output .= '<url>';
++			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
++		]]></add>
++	</operation>
++
++	<operation>
++		<search><![CDATA[
++			$output .= '<loc>' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $manufacturer['manufacturer_id']) . '</loc>';
++		]]></search>
++		<add position="replace" offset = "-1"><![CDATA[
++			$link = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $manufacturer['manufacturer_id']);
++			$output .= '<url>';
++			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
++		]]></add>
++	</operation>		
++	
++	<operation>
++		<search><![CDATA[
++			$output .= '<loc>' . $this->url->link('information/information', 'information_id=' . $information['information_id']) . '</loc>';
++		]]></search>
++		<add position="replace" offset = "-1"><![CDATA[
++			$link = $this->url->link('information/information', 'information_id=' . $information['information_id']);
++			$output .= '<url>';
++			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
++		]]></add>
++	</operation>	
++	
++	<operation>
++		<search><![CDATA[
++			$output .= '<loc>' . $this->url->link('product/product', 'path=' . $new_path . '&amp;product_id=' . $product['product_id']) . '</loc>';
++		]]></search>
++		<add position="replace" offset = "-1"><![CDATA[
++			$link = $this->url->link('product/product', 'path=' . $new_path . '&product_id=' . $product['product_id']);
++			$output .= '<url>';
++			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
++		]]></add>
++	</operation>
++	
++	</file>
+ 
+ 
+--- robots.txt	Sat Apr 18 13:48:13 2015
++++ robots.txt	Wed May 06 12:45:03 2015
+@@ -8,3 +8,2 @@
+ Disallow: /catalog
+-Disallow: /download
+ Disallow: /system
+@@ -58,3 +57,2 @@
+ Disallow: /catalog
+-Disallow: /download
+ Disallow: /system
+
+ 
++++ ============= ДОБАВЛЕННЫЕ ФАЙЛЫ =================
+
++ \system\modification\catalog\controller\feed\google_sitemap.php
+
+
