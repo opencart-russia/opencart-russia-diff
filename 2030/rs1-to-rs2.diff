@@ -1,0 +1,104 @@
+--- admin/language/russian/common/footer.php	Thu May 21 20:54:37 2015
++++ admin/language/russian/common/footer.php	Wed May 27 18:59:29 2015
+@@ -3,3 +3,3 @@
+ $_['text_footer'] 	= '<HR><a href="http://www.opencart.com">OpenCart</a> &copy; 2009-' . date('Y') . ' Все права защищены.<br /> <BR /> <a href="http://opencart-russia.ru" target="_blank">Русская сборка OpenCart</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://forum.opencart-russia.ru" target="_blank">Форум поддержки</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://shop.opencart-russia.ru" target="_blank">Магазин дополнений</a>';
+-$_['text_version'] 	= 'Version %s (rs.1)';
++$_['text_version'] 	= 'Version %s (rs.2)';
+ 
+ 
+--- catalog/controller/feed/google_sitemap.php	Wed May 20 18:25:39 2015
++++ catalog/controller/feed/google_sitemap.php	Wed May 27 18:25:53 2015
+@@ -46,3 +46,3 @@
+ 					$output .= '<url>';
+-					$output .= '<loc>' . $this->url->link('product/product', 'manufacturer_id=' . $manufacturer['manufacturer_id'] . '&amp;product_id=' . $product['product_id']) . '</loc>';
++					$output .= '<loc>' . $this->url->link('product/product', 'manufacturer_id=' . $manufacturer['manufacturer_id'] . '&product_id=' . $product['product_id']) . '</loc>';
+ 					$output .= '<changefreq>weekly</changefreq>';
+@@ -94,3 +94,3 @@
+ 				$output .= '<url>';
+-				$output .= '<loc>' . $this->url->link('product/product', 'path=' . $new_path . '&amp;product_id=' . $product['product_id']) . '</loc>';
++				$output .= '<loc>' . $this->url->link('product/product', 'path=' . $new_path . '&product_id=' . $product['product_id']) . '</loc>';
+ 				$output .= '<changefreq>weekly</changefreq>';
+ 				
+ 				
+--- system/tweak.ocmod.xml	Fri May 22 10:00:27 2015
++++ system/tweak.ocmod.xml	Wed May 27 18:29:29 2015
+@@ -108,72 +108,2 @@
+ 
+-<!-- Исправляем sitemap.xml. Меняем амперсанды для корректной генерации -->
+-<file path="catalog/controller/feed/google_sitemap.php">
+-	<operation>
+-		<search><![CDATA[
+-			$output .= '<loc>' . $this->url->link('product/product', 'product_id=' . $product['product_id']) . '</loc>';
+-		]]></search>
+-		<add position="replace" offset = "-1"><![CDATA[
+-			$link = $this->url->link('product/product', 'product_id=' . $product['product_id']);
+-			$output .= '<url>';
+-			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
+-		]]></add>
+-	</operation>
+-
+-	<operation>
+-		<search><![CDATA[
+-			$output .= '<loc>' . $this->url->link('product/product', 'manufacturer_id=' . $manufacturer['manufacturer_id'] . '&amp;product_id=' . $product['product_id']) . '</loc>';
+-		]]></search>
+-		<add position="replace" offset = "-1"><![CDATA[
+-			$link = $this->url->link('product/product', 'manufacturer_id=' . $manufacturer['manufacturer_id'] . '&product_id=' . $product['product_id']);
+-			$output .= '<url>';
+-			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
+-		]]></add>
+-	</operation>
+-	
+-	<operation>
+-		<search><![CDATA[
+-			$output .= '<loc>' . $this->url->link('product/category', 'path=' . $new_path) . '</loc>';
+-		]]></search>
+-		<add position="replace" offset = "-1"><![CDATA[
+-			$link = $this->url->link('product/category', 'path=' . $new_path);
+-			$output .= '<url>';
+-			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
+-		]]></add>
+-	</operation>
+-
+-	<operation>
+-		<search><![CDATA[
+-			$output .= '<loc>' . $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $manufacturer['manufacturer_id']) . '</loc>';
+-		]]></search>
+-		<add position="replace" offset = "-1"><![CDATA[
+-			$link = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $manufacturer['manufacturer_id']);
+-			$output .= '<url>';
+-			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
+-		]]></add>
+-	</operation>		
+-	
+-	<operation>
+-		<search><![CDATA[
+-			$output .= '<loc>' . $this->url->link('information/information', 'information_id=' . $information['information_id']) . '</loc>';
+-		]]></search>
+-		<add position="replace" offset = "-1"><![CDATA[
+-			$link = $this->url->link('information/information', 'information_id=' . $information['information_id']);
+-			$output .= '<url>';
+-			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
+-		]]></add>
+-	</operation>	
+-	
+-	<operation>
+-		<search><![CDATA[
+-			$output .= '<loc>' . $this->url->link('product/product', 'path=' . $new_path . '&amp;product_id=' . $product['product_id']) . '</loc>';
+-		]]></search>
+-		<add position="replace" offset = "-1"><![CDATA[
+-			$link = $this->url->link('product/product', 'path=' . $new_path . '&product_id=' . $product['product_id']);
+-			$output .= '<url>';
+-			$output .= '<loc>' . str_replace('&', '&amp;', $link) . '</loc>';
+-		]]></add>
+-	</operation>
+-	
+-	</file>
+-
+ </modification>
+\ No newline at end of file
+
+
+=========== УДАЛЕННЫЕ ФАЙЛЫ ===============
+
+++ \system\modification\catalog\controller\feed\google_sitemap.php
+
